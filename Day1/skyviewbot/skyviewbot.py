@@ -155,4 +155,4 @@ def skyviewbot():
 # This part allows you to run the script as normal, as well as a function form
 if __name__ == '__main__':
     skyviewbot()
-python skyviewbot.py -s -fi Galaxy -sur DSS -ar 185.63325 -dec 29.8959 -fov 1 -e J2000
+# python skyviewbot.py -s -fi Galaxy -sur DSS -ar 185.63325 -dec 29.8959 -fov 1 -e J2000
