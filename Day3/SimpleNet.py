@@ -223,21 +223,41 @@ def train(net: NeuralNet, inputs: Tensor, targets: Tensor,
             optimizer.step(net)
 
         # Print status every 1000 iterations
-        if epoch % 200 == 0:
+        if epoch % 4000 == 0:
             print(epoch, epoch_loss)
 
 
-X = np.array([[0, 0], [1, 0], [0, 1], [1, 1]])
-y = np.array([[0], [1], [1], [0]])
 
+def prova(x, y):
+    return x, y, np.exp((- x**2. - y**2.))
+
+#X = np.array([[0, 0], [1, 0], [0, 1], [1, 1]])
+#y = np.array([[0], [1], [1], [0]])
+X = np.array([[]])
+y = np.array([[]])
+
+xx, yy, res = prova(np.random.uniform(), np.random.uniform())
+ax = [xx, yy]
+
+X = np.append(X ,ax)
+y = np.append(y, res)
+
+
+for i in range(1, 1000):
+    xx, yy, res = prova(np.random.uniform(), np.random.uniform())
+    ax = [xx, yy]
+    X = np.vstack([X, ax])
+    y = np.append(y, res)
+
+y = np.vstack(y)
 
 def print_xor_results(inputs: Tensor, targets: Tensor, predictions: Tensor) -> None:
-    print('\nX => y => y_pred => round(y_pred)')
+    print('\nX => y => y_pred')
     for x, y, z in zip(inputs, targets, predictions):
-        print(f'{x} => {y} => {z} => {z.round()}')
+        print(f'{x} => {y} => {z}')
 
 
-def train_xor(net: Optimizer, inputs: Tensor, targets: Tensor, epochs: int = 2000):
+def train_xor(net: Optimizer, inputs: Tensor, targets: Tensor, epochs: int = 4000):
     train(net, inputs, targets, num_epochs=epochs)
     predictions = net.forward(inputs)
     print_xor_results(inputs, targets, predictions)
@@ -288,6 +308,12 @@ net2 = NeuralNet([
     Linear(input_size=2, output_size=4),
     Tanh(),
     # Qui se vuoi ci infili dentri una funzione di attivazione!!!!
+    Linear(input_size=4, output_size=4),
+    Tanh(),
+    Linear(input_size=4, output_size=4),
+    Tanh(),
+    Linear(input_size=4, output_size=4),
+    Tanh(),
     Linear(input_size=4, output_size=1),
     ])
 train_xor(net2, X, y)
