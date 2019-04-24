@@ -13,6 +13,11 @@ class Loss:
     def grad(self, predicted: Tensor, actual: Tensor) -> Tensor:
         raise NotImplementedError
 
+# La scelta della funzione di loss da usare e` molto soggettiva al problema
+# che si deve affrontare, pero` e` necessario che questa sia convessa,
+# altrimenti rischi di venire trappato in qualche minimo locale da cui
+# difficilmente ci si riesce a togliere.
+
 
 class MeanSquareError(Loss):
     def loss(self, predicted: Tensor, actual: Tensor) -> float:
@@ -231,25 +236,25 @@ def train(net: NeuralNet, inputs: Tensor, targets: Tensor,
 def prova(x, y):
     return x, y, np.exp((- x**2. - y**2.))
 
-#X = np.array([[0, 0], [1, 0], [0, 1], [1, 1]])
-#y = np.array([[0], [1], [1], [0]])
-X = np.array([[]])
-y = np.array([[]])
-
-xx, yy, res = prova(np.random.uniform(), np.random.uniform())
-ax = [xx, yy]
-
-X = np.append(X ,ax)
-y = np.append(y, res)
-
-
-for i in range(1, 1000):
-    xx, yy, res = prova(np.random.uniform(), np.random.uniform())
-    ax = [xx, yy]
-    X = np.vstack([X, ax])
-    y = np.append(y, res)
-
-y = np.vstack(y)
+X = np.array([[0, 0], [1, 0], [0, 1], [1, 1]])
+y = np.array([[0], [1], [1], [0]])
+# X = np.array([[]])
+# y = np.array([[]])
+#
+# xx, yy, res = prova(np.random.uniform(), np.random.uniform())
+# ax = [xx, yy]
+#
+# X = np.append(X ,ax)
+# y = np.append(y, res)
+#
+#
+# for i in range(1, 1000):
+#     xx, yy, res = prova(np.random.uniform(), np.random.uniform())
+#     ax = [xx, yy]
+#     X = np.vstack([X, ax])
+#     y = np.append(y, res)
+#
+# y = np.vstack(y)
 
 def print_xor_results(inputs: Tensor, targets: Tensor, predictions: Tensor) -> None:
     print('\nX => y => y_pred')
@@ -308,12 +313,12 @@ net2 = NeuralNet([
     Linear(input_size=2, output_size=4),
     Tanh(),
     # Qui se vuoi ci infili dentri una funzione di attivazione!!!!
-    Linear(input_size=4, output_size=4),
-    Tanh(),
-    Linear(input_size=4, output_size=4),
-    Tanh(),
-    Linear(input_size=4, output_size=4),
-    Tanh(),
+    # Linear(input_size=4, output_size=4),
+    # Tanh(),
+    # Linear(input_size=4, output_size=4),
+    # Tanh(),
+    # Linear(input_size=4, output_size=4),
+    # Tanh(),
     Linear(input_size=4, output_size=1),
     ])
 train_xor(net2, X, y)
